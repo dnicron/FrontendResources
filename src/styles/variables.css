@@ -1,0 +1,10 @@
+:root {
+  --primary-color: #000000;
+  --secondary-color: #273240;
+  --accent-color: #5a6acf;
+  --bg-color: #627b87;
+  --focus-color: #707fdd;
+  --form-color: #f6f6f6;
+  --header-height: 80px;
+  --default-padding: 20px 30px;
+}

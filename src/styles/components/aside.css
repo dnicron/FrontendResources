@@ -1,0 +1,74 @@
+.sidebar {
+  background-color: #f1f2f7;
+}
+
+.sidebar__header {
+  height: var(--header-height);
+  border-bottom: 1px solid #c8cbd9;
+  display: flex;
+  align-items: center;
+  padding: var(--default-padding);
+}
+
+.logo__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo__img {
+  background-color: var(--accent-color);
+  padding: 8px;
+  border-radius: 50%;
+  color: #f1f2f7;
+}
+.logo__description {
+}
+
+.nav {
+  padding: var(--default-padding);
+}
+
+.nav__title {
+  display: block;
+  font-size: 22px;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  font-weight: bolder;
+}
+.nav__menu {
+  padding-left: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.nav__menu-item {
+}
+.sub-menu__title {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.sub-menu {
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.sub-menu__item {
+}
+.sub-menu__btn {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  text-align: left;
+  font: inherit; /* Чтобы кнопка наследовала шрифт родителя */
+  cursor: pointer;
+  color: var(--secondary-color); /* Или выбери подходящий серый */
+  transition: color 0.2s;
+}
+
+.sub-menu__btn:hover {
+  color: var(--accent-color); /* Кнопка будет "подмигивать" при наведении */
+}

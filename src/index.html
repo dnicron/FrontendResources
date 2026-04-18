@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resiurses</title>
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="sidebar__header logo__wrapper">
+          <span class="logo__img">FR</span>
+          <span class="logo__description">FrontendResources</span>
+        </div>
+        <nav class="nav">
+          <span class="nav__title">Filters</span>
+          <ul class="nav__menu">
+            <li class="nav__menu-item">
+              <span class="sub-menu__title">Tech</span>
+              <ul class="sub-menu">
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">HTML</button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">CSS</button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">JavaScript</button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">JS Frameworks</button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">Other</button>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav__menu-item">
+              <span class="sub-menu__title">Source</span>
+              <ul class="sub-menu">
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">Books</button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">Videos</button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">Websites</button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">Other</button>
+                </li>
+              </ul>
+            </li>
+            <li class="nav__menu-item">
+              <span class="sub-menu__title">Practice</span>
+              <ul class="sub-menu">
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">Templates</button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">Project ideas</button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn">Best practices</button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <div class="app__inner">
+        <header class="header">
+          <form class="header__left search-form">
+            <label for="search-input" class="visually-hidden"
+              >Search resourses</label
+            >
+            <input
+              id="search-input"
+              type="search"
+              class="search-form__input"
+              placeholder="Search"
+            />
+            <button class="search-form__btn" type="submit">
+              <img src="./assets/loupe-Icon.svg" alt="Search image" />
+            </button>
+          </form>
+          <div class="header__right">
+            <div class="user">
+              <img
+                class="user__img"
+                src="./assets/user-image-test.png"
+                alt="User image"
+              />
+              <button class="user__btn" type="button">User Name</button>
+            </div>
+            <button class="notice-btn">
+              <img
+                class="notice-btn__img"
+                src="./assets/notif-Icon.svg"
+                alt=""
+              />
+            </button>
+          </div>
+        </header>
+        <main class="main"></main>
+      </div>
+    </div>
+  </body>
+</html>

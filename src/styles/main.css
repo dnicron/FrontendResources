@@ -1,0 +1,50 @@
+@import './reset.css';
+@import './variables.css';
+@import './components/buttons.css';
+@import './components/aside.css';
+@import './components/header.css';
+@import './components/content.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+}
+
+input:focus,
+button:focus {
+  outline: none;
+  border: none;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.app__inner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
