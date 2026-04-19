@@ -1,5 +1,8 @@
 .sidebar {
   background-color: #f1f2f7;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
 .sidebar__header {
@@ -36,12 +39,14 @@
   font-weight: bolder;
 }
 .nav__menu {
-  padding-left: 14px;
+  padding-left: 1px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 .nav__menu-item {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #c8cbd9;
 }
 .sub-menu__title {
   display: block;
@@ -50,25 +55,9 @@
   margin-bottom: 5px;
 }
 .sub-menu {
-  padding-left: 10px;
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 .sub-menu__item {
-}
-.sub-menu__btn {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 12px 20px;
-  text-align: left;
-  font: inherit; /* Чтобы кнопка наследовала шрифт родителя */
-  cursor: pointer;
-  color: var(--secondary-color); /* Или выбери подходящий серый */
-  transition: color 0.2s;
-}
-
-.sub-menu__btn:hover {
-  color: var(--accent-color); /* Кнопка будет "подмигивать" при наведении */
 }

@@ -1,0 +1,130 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: stretch;
+  flex: 1;
+}
+.cards-list {
+  padding: var(--default-padding);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: min-content;
+  align-content: start;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid var(--bg-color);
+  border-radius: var(--bg-radius);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card > * {
+  padding-inline: 20px;
+}
+
+.card__header {
+  padding-block: 30px;
+  background-color: var(--accent-color);
+  color: #ffffff;
+}
+
+.card__icon-wrapper {
+  text-align: center;
+}
+.card__icon {
+  max-width: 100%;
+  width: 60px;
+  height: auto;
+}
+
+.card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.card__title {
+  font-size: 22px;
+}
+.card__category {
+  font-size: 14px;
+}
+.card__description {
+}
+.card__footer {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+  gap: 10px;
+}
+.card__tags {
+}
+.tag {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.card__btn-details {
+}
+
+.sidebar-details {
+  position: fixed;
+  top: 80px;
+  right: 0;
+  width: 400px;
+  height: calc(100vh - 80px); /* ВНИМАНИЕ */
+  background-color: #ffffff;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  padding: var(--default-padding);
+  border: 1px solid black;
+}
+
+.sidebar-details.is-active {
+  transform: translateX(0);
+}
+
+/* tags styles */
+
+.tag-beginner {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+}
+
+.tag-medium {
+  background-color: #fff9db;
+  color: #f08c00;
+}
+
+.tag-advanced {
+  background-color: #fff5f5;
+  color: #e03131;
+}
+.tag-free {
+  background-color: #e7f5ff;
+  color: #1971c2;
+}
+
+.tag-paid {
+  background-color: #f3f0ff;
+  color: #6741d9;
+}

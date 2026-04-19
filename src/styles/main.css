@@ -1,4 +1,5 @@
 @import './reset.css';
+@import './fonts.css';
 @import './variables.css';
 @import './components/buttons.css';
 @import './components/aside.css';
@@ -11,12 +12,28 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+h1,
+h2,
+h3,
+h4,
+.sidebar__header,
+.sub-menu__title {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+input,
 button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  display: flex;
+  font-family: 'Roboto';
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 input:focus,
@@ -27,13 +44,14 @@ button:focus {
 
 .app {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .app__inner {
   display: flex;
   flex-direction: column;
   flex: 1;
+  height: 100%;
 }
 
 .visually-hidden {

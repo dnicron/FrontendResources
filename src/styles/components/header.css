@@ -5,6 +5,10 @@
   justify-content: space-between;
   align-items: center;
   height: 80px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #ffffff;
 }
 
 .header__left {
@@ -18,7 +22,7 @@
   padding: 10px 15px;
   width: 100%;
   max-width: 625px;
-  border-radius: 5px;
+  border-radius: var(--bg-radius);
   border: 1px solid #c8cbd9;
 }
 
@@ -26,10 +30,6 @@
   border: none;
   background-color: transparent;
   width: 100%;
-}
-
-.search-form__btn {
-  background-color: transparent;
 }
 
 .header__right {
@@ -47,15 +47,4 @@
 .user__img {
   width: 36px;
   height: 36px;
-}
-
-.user__btn {
-}
-
-.notice-btn {
-}
-
-.notice-btn__img {
-  width: 18px;
-  height: 26px;
 }
