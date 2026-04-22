@@ -23,7 +23,8 @@ h2,
 h3,
 h4,
 .sidebar__header,
-.sub-menu__title {
+.sub-menu__title,
+.cards-filter__title {
   font-family: 'Rubik', sans-serif;
   font-weight: 500;
   line-height: 1.2;
@@ -51,7 +52,9 @@ button:focus {
   display: flex;
   flex-direction: column;
   flex: 1;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .visually-hidden {

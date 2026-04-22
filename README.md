@@ -1,10 +1,19 @@
-# JS Template
+# MLD — Frontend Resource Library (v1.0.0)
 
-## Commands
+Интерактивная библиотека ресурсов для обучения фронтенд-разработке.
+Проект написан на чистом JavaScript (Vanilla JS) с использованием ООП.
 
-npm run lint
-npm run lint:fix
+## 🚀 Функционал
 
-<!-- npm install
-cp -r js-template my-project
-cd my-project -->
+- Множественная фильтрация (Tech, Source, Grade, Cost).
+- Динамический рендеринг карточек.
+- Детальный просмотр ресурса в боковой панели.
+
+## 🛠 Технологии
+
+- HTML5 / CSS3 (Flexbox/Grid)
+- JavaScript (ES6+, Classes, Event Delegation)
+
+## ⚡ Как запустить
+
+Просто откройте `index.html` в браузере или используйте Live Server.

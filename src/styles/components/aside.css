@@ -10,21 +10,16 @@
   border-bottom: 1px solid #c8cbd9;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: var(--default-padding);
-}
-
-.logo__wrapper {
-  display: flex;
-  align-items: center;
   gap: 10px;
 }
+
 .logo__img {
   background-color: var(--accent-color);
   padding: 8px;
   border-radius: 50%;
   color: #f1f2f7;
-}
-.logo__description {
 }
 
 .nav {
@@ -59,5 +54,31 @@
   flex-direction: column;
   gap: 5px;
 }
-.sub-menu__item {
+
+@media (max-width: 850px) {
+  .sidebar__header {
+    padding: 8px;
+  }
+  .sub-menu__btn span {
+    display: none;
+  }
+
+  .logo__description {
+    display: none;
+  }
+
+  .nav {
+    padding: 8px;
+  }
+  .nav__menu-item {
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sub-menu__title {
+    display: none !important;
+  }
 }

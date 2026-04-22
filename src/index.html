@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resiurses</title>
+    <title>FrontendResources</title>
     <link rel="stylesheet" href="./styles/main.css" />
+    <script defer src="./index.js"></script>
   </head>
   <body>
     <div class="app">
@@ -16,11 +17,11 @@
         <nav class="nav">
           <!-- <span class="nav__title">Filters</span> -->
           <ul class="nav__menu">
-            <li class="nav__menu-item">
+            <li class="nav__menu-item" id="filter-parent">
               <span class="sub-menu__title">Tech</span>
               <ul class="sub-menu">
                 <li class="sub-menu__item">
-                  <button class="sub-menu__btn">
+                  <button class="sub-menu__btn" data-type="HTML">
                     <svg
                       class="sub-menu__icon"
                       role="img"
@@ -36,7 +37,7 @@
                   </button>
                 </li>
                 <li class="sub-menu__item">
-                  <button class="sub-menu__btn">
+                  <button class="sub-menu__btn" data-type="CSS">
                     <svg
                       class="sub-menu__icon"
                       role="img"
@@ -51,7 +52,7 @@
                   </button>
                 </li>
                 <li class="sub-menu__item">
-                  <button class="sub-menu__btn">
+                  <button class="sub-menu__btn" data-type="JS">
                     <svg
                       class="sub-menu__icon"
                       role="img"
@@ -66,30 +67,15 @@
                     <span>JavaScript</span>
                   </button>
                 </li>
+
                 <li class="sub-menu__item">
-                  <button class="sub-menu__btn">
-                    <svg
-                      class="sub-menu__icon"
-                      role="img"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <title>React</title>
-                      <path
-                        d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"
-                      />
-                    </svg>
-                    <span>JS Frameworks</span>
-                  </button>
-                </li>
-                <li class="sub-menu__item">
-                  <button class="sub-menu__btn">
+                  <button class="sub-menu__btn" data-type="JS FRAMEWORK">
                     <svg
                       class="sub-menu__icon"
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
                       height="32"
-                      fill="#000000"
+                      fill="currentColor"
                       viewBox="0 0 256 256"
                     >
                       <path
@@ -97,83 +83,17 @@
                       ></path>
                     </svg>
                     <span>Other</span>
+                  </button>
+                </li>
+                <li class="sub-menu__item">
+                  <button class="sub-menu__btn is-active" data-type="SHOW ALL">
+                    <span> Show All</span>
                   </button>
                 </li>
               </ul>
             </li>
 
-            <li class="nav__menu-item">
-              <span class="sub-menu__title">Source</span>
-              <ul class="sub-menu">
-                <li class="sub-menu__item">
-                  <button class="sub-menu__btn">
-                    <svg
-                      class="sub-menu__icon"
-                      role="img"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <title>BookStack</title>
-                      <path
-                        d="M.3013 17.6146c-.1299-.3387-.5228-1.5119-.1337-2.4314l9.8273 5.6738a.329.329 0 0 0 .3299 0L24 12.9616v2.3542l-13.8401 7.9906-9.8586-5.6918zM.1911 8.9628c-.2882.8769.0149 2.0581.1236 2.4261l9.8452 5.6841L24 9.0823V6.7275L10.3248 14.623a.329.329 0 0 1-.3299 0L.1911 8.9628zm13.1698-1.9361c-.1819.1113-.4394.0015-.4852-.2064l-.2805-1.1336-2.1254-.1752a.33.33 0 0 1-.1378-.6145l5.5782-3.2207-1.7021-.9826L.6979 8.4935l9.462 5.463 13.5104-7.8004-4.401-2.5407-5.9084 3.4113zm-.1821-1.7286.2321.938 5.1984-3.0014-2.0395-1.1775-4.994 2.8834 1.3099.108a.3302.3302 0 0 1 .2931.2495zM24 9.845l-13.6752 7.8954a.329.329 0 0 1-.3299 0L.1678 12.0667c-.3891.919.003 2.0914.1332 2.4311l9.8589 5.692L24 12.1993V9.845z"
-                      />
-                    </svg>
-                    <span>Books</span>
-                  </button>
-                </li>
-                <li class="sub-menu__item">
-                  <button class="sub-menu__btn">
-                    <svg
-                      class="sub-menu__icon"
-                      role="img"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <title>YouTube</title>
-                      <path
-                        d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-                      />
-                    </svg>
-                    <span>Videos</span>
-                  </button>
-                </li>
-                <li class="sub-menu__item">
-                  <button class="sub-menu__btn">
-                    <svg
-                      class="sub-menu__icon"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      fill="#000000"
-                      viewBox="0 0 256 256"
-                    >
-                      <path
-                        d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z"
-                      ></path>
-                    </svg>
-                    <span>Websites</span>
-                  </button>
-                </li>
-                <li class="sub-menu__item">
-                  <button class="sub-menu__btn">
-                    <svg
-                      class="sub-menu__icon"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="32"
-                      height="32"
-                      fill="#000000"
-                      viewBox="0 0 256 256"
-                    >
-                      <path
-                        d="M104,40H56A16,16,0,0,0,40,56v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,104,40Zm0,64H56V56h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V56A16,16,0,0,0,200,40Zm0,64H152V56h48v48Zm-96,32H56a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,104,136Zm0,64H56V152h48v48Zm96-64H152a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V152A16,16,0,0,0,200,136Zm0,64H152V152h48v48Z"
-                      ></path>
-                    </svg>
-                    <span>Other</span>
-                  </button>
-                </li>
-              </ul>
-            </li>
-            <li class="nav__menu-item">
+            <li class="nav__menu-item" style="visibility: hidden">
               <span class="sub-menu__title">Practice</span>
               <ul class="sub-menu">
                 <li class="sub-menu__item">
@@ -183,7 +103,7 @@
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
                       height="32"
-                      fill="#000000"
+                      fill="currentColor"
                       viewBox="0 0 256 256"
                     >
                       <path
@@ -200,7 +120,7 @@
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
                       height="32"
-                      fill="#000000"
+                      fill="currentColor"
                       viewBox="0 0 256 256"
                     >
                       <path
@@ -217,7 +137,8 @@
                       xmlns="http://www.w3.org/2000/svg"
                       width="32"
                       height="32"
-                      fill="#000000"
+                      fill="currentColor"
+                      stroke="currentColor"
                       viewBox="0 0 256 256"
                     >
                       <path
@@ -248,7 +169,7 @@
               <img src="./assets/loupe-Icon.svg" alt="Search image" />
             </button>
           </form>
-          <div class="header__right">
+          <div class="header__right" style="visibility: hidden">
             <div class="user">
               <img
                 class="user__img"
@@ -266,340 +187,162 @@
             </button>
           </div>
         </header>
-        <main class="main">
-          <ul class="cards-list">
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
+        <main class="main-wrapper">
+          <div class="cards-filters">
+            <div class="cards-filter">
+              <span class="cards-filter__title">Source</span>
+              <div class="cards-filter__wrapper" id="filter-parent">
+                <button
+                  class="cards-filter__btn tag card__category is-active"
+                  data-source="ALL"
+                >
+                  all
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-source="website"
+                >
+                  website
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-source="book"
+                >
+                  book
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-source="docs"
+                >
+                  docs
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-source="roadmap"
+                >
+                  roadmap
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-source="courses"
+                >
+                  courses
                 </button>
               </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
+            </div>
+            <div class="cards-filter">
+              <span class="cards-filter__title">Grade</span>
+              <div class="cards-filter__wrapper" id="filter-parent">
+                <button
+                  class="cards-filter__btn tag card__category is-active"
+                  data-grade="ALL"
+                >
+                  all
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-grade="beginner"
+                >
+                  beginner
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-grade="medium"
+                >
+                  medium
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-grade="advanced"
+                >
+                  advanced
                 </button>
               </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
+            </div>
+            <div class="cards-filter">
+              <span class="cards-filter__title">Cost</span>
+              <div class="cards-filter__wrapper" id="filter-parent">
+                <button
+                  class="cards-filter__btn tag card__category is-active"
+                  data-cost="ALL"
+                >
+                  all
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-cost="paid"
+                >
+                  paid
+                </button>
+                <button
+                  class="cards-filter__btn tag card__category"
+                  data-cost="free"
+                >
+                  free
                 </button>
               </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
+            </div>
+          </div>
+          <div class="main">
+            <ul class="cards-list"></ul>
+            <aside class="sidebar-details">
+              <div class="sidebar-details__header">
+                <button
+                  type="button"
+                  id="exit-btn"
+                  class="sidebar-details__btn"
+                >
+                  <svg
+                    class="sidebar-details__icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    x="0px"
+                    y="0px"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 50 50"
+                  >
+                    <path
+                      d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 37.690466 12.309534 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 13.390466 46 4 36.609534 4 25 C 4 13.390466 13.390466 4 25 4 z M 32.990234 15.986328 A 1.0001 1.0001 0 0 0 32.292969 16.292969 L 25 23.585938 L 17.707031 16.292969 A 1.0001 1.0001 0 0 0 16.990234 15.990234 A 1.0001 1.0001 0 0 0 16.292969 17.707031 L 23.585938 25 L 16.292969 32.292969 A 1.0001 1.0001 0 1 0 17.707031 33.707031 L 25 26.414062 L 32.292969 33.707031 A 1.0001 1.0001 0 1 0 33.707031 32.292969 L 26.414062 25 L 33.707031 17.707031 A 1.0001 1.0001 0 0 0 32.990234 15.986328 z"
+                    ></path>
+                  </svg>
+                </button>
+                <button type="button" class="sidebar-details__btn favorite-btn">
+                  <svg
+                    class="sidebar-details__icon"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M11.9932 5.13581C9.9938 2.7984 6.65975 2.16964 4.15469 4.31001C1.64964 6.45038 1.29697 10.029 3.2642 12.5604C4.89982 14.6651 9.84977 19.1041 11.4721 20.5408C11.6536 20.7016 11.7444 20.7819 11.8502 20.8135C11.9426 20.8411 12.0437 20.8411 12.1361 20.8135C12.2419 20.7819 12.3327 20.7016 12.5142 20.5408C14.1365 19.1041 19.0865 14.6651 20.7221 12.5604C22.6893 10.029 22.3797 6.42787 19.8316 4.31001C17.2835 2.19216 13.9925 2.7984 11.9932 5.13581Z"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
                 </button>
               </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
+              <div class="sidebar-details__content">
+                <div class="sidebar-details__title-wrapper">
+                  <h2 class="sidebar-details__title"></h2>
+                  <img src="" alt="" class="details__img" />
                 </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
+                <div class="sidebar-details__meta">
+                  <span
+                    class="sidebar-details__source card__category tag"
+                  ></span>
+                  <span class="tag grade-tag"></span>
+                  <span class="tag cost-tag"></span>
                 </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
+                <p class="sidebar-details__description"></p>
               </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
-                </button>
-              </div>
-            </li>
-            <li class="card">
-              <div class="card__header">
-                <div class="card__icon-wrapper">
-                  <img
-                    src="./assets/css-icon.svg"
-                    class="card__icon"
-                    alt="CSS"
-                  />
-                </div>
-              </div>
-              <div class="card__body">
-                <div class="card__meta">
-                  <h3 class="card__title">Learn.js</h3>
-                  <span class="card__category">Website</span>
-                </div>
-                <p class="card__description">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Quod, molestias?
-                </p>
-              </div>
-              <div class="card__footer">
-                <div class="card__tags">
-                  <span class="tag tag-beginner">Beginner</span>
-                  <span class="tag tag-free">Free</span>
-                </div>
-                <button type="button" class="card__btn-details">
-                  Details →
-                </button>
-              </div>
-            </li>
-          </ul>
-          <aside class="sidebar-details"></aside>
+            </aside>
+          </div>
         </main>
       </div>
     </div>

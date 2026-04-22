@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 5px;
   height: 80px;
   position: sticky;
   top: 0;
@@ -47,4 +48,14 @@
 .user__img {
   width: 36px;
   height: 36px;
+}
+
+@media (max-width: 850px) {
+  .header {
+    padding: 8px;
+  }
+
+  .header__right {
+    gap: 12px;
+  }
 }
