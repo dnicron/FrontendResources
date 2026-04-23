@@ -36,7 +36,6 @@ const techIcons = {
   HTML: './assets/html5-icon.svg',
   CSS: './assets/css-icon.svg',
   JS: './assets/javascript-icon.svg',
-  'JS FRAMEWORK': './assets/javascript-icon.svg',
   ALL: './assets/all-in-one.svg',
 }
 
@@ -51,8 +50,16 @@ const tagsCostClasses = {
   paid: 'tag-paid',
 }
 
+const notFoundBanner = document.querySelector('.not-found')
 function contentRender(list) {
   cardsListELement.innerHTML = ''
+  if (list.length === 0) {
+    notFoundBanner.classList.remove('is-hidden')
+    mainBlock.classList.add('is-hidden')
+    return
+  }
+  notFoundBanner.classList.add('is-hidden')
+  mainBlock.classList.remove('is-hidden')
   list.forEach((resource) => {
     const elementsObject = createCard()
     elementsObject.cardIcon.src = techIcons[resource.tech]
@@ -286,7 +293,7 @@ new Resource({
 })
 
 new Resource({
-  tech: 'JS FRAMEWORK',
+  tech: 'JS',
   title: 'React.dev',
   source: 'Docs',
   description:
@@ -328,7 +335,7 @@ function applyFilters() {
     const matchTech =
       filteredState.tech === 'SHOW ALL' ||
       resource.tech === filteredState.tech ||
-      resource.tech === 'ALL'
+      (filteredState.tech !== 'OTHER' && resource.tech === 'ALL')
 
     const matchSource =
       filteredState.source === 'ALL' || resource.source === filteredState.source
@@ -342,19 +349,45 @@ function applyFilters() {
     return matchTech && matchSource && matchGrade && matchCost
   })
   contentRender(filteredList)
+  return filteredList
 }
 
-// const buttonsList = document.querySelectorAll('[data-type]')
+function resetAllFilters() {
+  filteredState.tech = 'SHOW ALL'
+  filteredState.source = 'ALL'
+  filteredState.grade = 'ALL'
+  filteredState.cost = 'ALL'
+
+  document
+    .querySelectorAll('.is-active')
+    .forEach((el) => el.classList.remove('is-active'))
+  const allDefaultButtons = document.querySelectorAll(
+    '[data-type="SHOW ALL"], [data-source="ALL"], [data-grade="ALL"], [data-cost="ALL"]',
+  )
+  allDefaultButtons.forEach((btn) => {
+    btn.classList.add('is-active')
+  })
+  applyFilters()
+}
+
+const notFoundBtn = document.querySelector('.not-found__btn')
 document.addEventListener('click', (e) => {
+  if (e.target.closest('.not-found__btn')) {
+    resetAllFilters()
+    return
+  }
+
   const filterBtn = e.target.closest(
     '[data-type], [data-source], [data-grade], [data-cost]',
   )
+
   if (!filterBtn) return
 
   mainBlock.classList.remove('is-sidebar-open')
 
   if (filterBtn.hasAttribute('data-type'))
     filteredState.tech = filterBtn.getAttribute('data-type')
+  console.log(filteredState.tech)
   if (filterBtn.hasAttribute('data-source'))
     filteredState.source = filterBtn.getAttribute('data-source')
   if (filterBtn.hasAttribute('data-grade'))
@@ -366,7 +399,30 @@ document.addEventListener('click', (e) => {
     .querySelectorAll('.is-active')
     .forEach((el) => el.classList.remove('is-active'))
   filterBtn.classList.add('is-active')
-
+  console.log(filteredState)
   // Запускаем общую фильтрацию
   applyFilters()
+})
+
+const searchForm = document.querySelector('.search-form')
+const searchBtn = document.querySelector('.search-form__btn')
+const searchInput = document.querySelector('.search-form__input')
+
+searchForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  let searchList = applyFilters()
+  const searchValue = searchInput.value.trim().toLowerCase()
+
+  if (searchValue === '') {
+    contentRender(searchList)
+    return
+  }
+
+  searchList = searchList.filter((resource) => {
+    const title = resource.title.toLowerCase()
+    const description = resource.description.toLowerCase()
+    console.log(title === searchValue)
+    return title.includes(searchValue) || description.includes(searchValue)
+  })
+  contentRender(searchList)
 })

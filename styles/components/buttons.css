@@ -14,9 +14,9 @@ button {
   border: none;
   padding: 14px 20px;
   text-align: left;
-  font: inherit; /* Чтобы кнопка наследовала шрифт родителя */
+  font: inherit;
   cursor: pointer;
-  color: var(--secondary-color); /* Или выбери подходящий серый */
+  color: var(--secondary-color);
   transition:
     color 0.2s,
     fill 0.2s;
@@ -31,7 +31,8 @@ button {
 }
 
 .sub-menu__btn:hover {
-  color: var(--accent-color); /* Кнопка будет "подмигивать" при наведении */
+  color: var(--accent-color);
+  fill: var(--accent-color);
 }
 
 .is-active {
@@ -66,7 +67,25 @@ button {
     color 0.3s;
 }
 
-.card__btn-details:hover {
+.card__btn-details:hover,
+.not-found__btn:hover {
+  background-color: var(--focus-color);
+  color: #ffffff;
+}
+
+.card__btn-details:focus,
+.not-found__btn:focus {
+  border: 1px solid var(--bg-color);
   background-color: var(--accent-color);
   color: #ffffff;
+}
+
+.not-found__btn {
+  padding: 10px 20px;
+  border: 1px solid var(--bg-color);
+  border-radius: var(--bg-radius);
+  font-size: 16px;
+  transition:
+    background 0.3s,
+    color 0.3s;
 }

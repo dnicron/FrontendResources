@@ -15,7 +15,7 @@
   height: 100%;
   flex: 1;
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .cards-list {
@@ -28,6 +28,17 @@
   align-items: stretch;
   overflow-y: auto;
   width: 100%;
+}
+
+@media (max-width: 450px) {
+  .cards-list {
+    font-size: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding: 10px 12px;
+  }
+  .cards-filters {
+    padding: 10px 12px !important;
+  }
 }
 
 .card {
@@ -118,6 +129,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
 }
 
 .sidebar-details * {
@@ -203,6 +215,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  padding-right: 20px;
 }
 
 .cards-filters::-webkit-scrollbar {
@@ -221,4 +234,62 @@
 .cards-filter__btn {
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  gap: 15px;
+  align-items: center;
+  text-align: center;
+  padding: var(--default-padding);
+}
+
+.not-found img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+}
+
+.not-found__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.not-found__title {
+}
+
+.is-hidden {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .main.is-sidebar-open {
+    display: block;
+  }
+  .sidebar-details {
+    top: 0;
+    right: 0;
+    width: 100% !important;
+    height: 80vh;
+
+    position: fixed;
+    z-index: 2000;
+
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    background-color: white;
+  }
+
+  .is-sidebar-open .sidebar-details {
+    transform: translateY(0);
+  }
 }
