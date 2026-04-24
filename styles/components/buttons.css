@@ -41,6 +41,7 @@ button {
   border-radius: var(--bg-radius);
   color: var(--accent-color);
   fill: var(--accent-color);
+  cursor: default;
 }
 
 /* HEADER BUTTONS */
@@ -88,4 +89,27 @@ button {
   transition:
     background 0.3s,
     color 0.3s;
+}
+
+.login-btn {
+  border: 1px solid var(--bg-color);
+  border-radius: var(--bg-radius);
+  padding: 10px 15px;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.3s ease-out;
+  white-space: nowrap;
+}
+
+.login-btn:hover {
+  background-color: var(--accent-color);
+  color: #ffffff;
+}
+
+.login-btn:focus {
+  border: 1px solid var(--bg-color);
+}
+
+.close-form__btn {
+  align-self: flex-end;
 }

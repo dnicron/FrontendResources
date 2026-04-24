@@ -264,10 +264,6 @@
 .not-found__title {
 }
 
-.is-hidden {
-  display: none;
-}
-
 @media (max-width: 768px) {
   .main.is-sidebar-open {
     display: block;

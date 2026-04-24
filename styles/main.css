@@ -4,6 +4,7 @@
 @import './components/buttons.css';
 @import './components/aside.css';
 @import './components/header.css';
+@import './components/auth.css';
 @import './components/content.css';
 
 *,
@@ -67,4 +68,8 @@ button:focus {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+
+.is-hidden {
+  display: none;
 }

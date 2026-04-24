@@ -3,6 +3,31 @@ const resourcesList = []
 const mainBlock = document.querySelector('.main')
 const cardsListELement = document.querySelector('.cards-list')
 // #############################################################
+
+// ####################### AUTH ###############################
+
+const openFormBtn = document.querySelector('.login-btn')
+const overlay = document.querySelector('.overlay')
+const loginForm = document.querySelector('.login-form')
+const loginSubmitBtn = document.getElementById('login-submit')
+const closeFormBtn = document.getElementById('close-form-btn')
+
+openFormBtn.addEventListener('click', () => {
+  loginForm.classList.remove('is-hidden')
+  overlay.classList.remove('is-hidden')
+})
+
+const closeAll = () => {
+  loginForm.classList.add('is-hidden')
+  overlay.classList.add('is-hidden')
+}
+
+overlay.addEventListener('click', closeAll)
+closeFormBtn.addEventListener('click', closeAll)
+
+loginForm.addEventListener('click', (e) => {})
+
+// ###########################################################
 class Resource {
   constructor({
     tech,
@@ -259,7 +284,7 @@ new Resource({
 new Resource({
   tech: 'CSS',
   title: 'Большая книга CSS',
-  source: 'книга',
+  source: 'book',
   description:
     'Настольная книга любого верстальщика. Учит строить современные макеты, разбираться в специфичности селекторов и тонкостях анимаций.',
   fullDescription:
@@ -295,7 +320,7 @@ new Resource({
 new Resource({
   tech: 'JS',
   title: 'React.dev',
-  source: 'Docs',
+  source: 'docs',
   description:
     'Официальное руководство по библиотеке React: использование хуков и управление состоянием.',
   fullDescription:
@@ -307,7 +332,7 @@ new Resource({
 new Resource({
   tech: 'JS',
   title: 'Frontend Masters',
-  source: 'Courses',
+  source: 'courses',
   description:
     'Видеокурсы высочайшего качества от экспертов индустрии и авторов библиотек.',
   fullDescription:
