@@ -1,14 +1,23 @@
 {
   "name": "js-template",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
+    "start": "cross-env PORT=5000 node ./server.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
+    "@types/node": "^25.6.0",
     "eslint": "^8.57.1",
-    "prettier": "^3.0.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "eslint-config-prettier": "^9.0.0"
+    "prettier": "^3.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "cross-env": "^10.1.0",
+    "express": "^5.2.1",
+    "sqlite3": "^6.0.1"
   }
 }

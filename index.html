@@ -182,7 +182,16 @@
               <img src="./assets/loupe-Icon.svg" alt="Search image" />
             </button>
           </form>
-          <button type="button" class="login-btn" id="login">Log in</button>
+          <div class="header__auth-zone">
+            <button type="button" class="login-btn" id="login">Log in</button>
+            <div class="user-profile is-hidden" id="user-profile">
+              <button
+                class="user-profile__name-btn"
+                id="user-name-display"
+              ></button>
+            </div>
+          </div>
+
           <form class="login-form is-hidden">
             <button type="button" id="close-form-btn" class="close-form__btn">
               <svg
@@ -199,53 +208,111 @@
                 ></path>
               </svg>
             </button>
-            <h2 class="login-form__title">Log in with</h2>
-            <div class="login-form-socials">
-              <button class="login-form__btn social-btn" type="button">
-                <img
-                  class="social-btn__img"
-                  src="./assets/google-logo.png"
-                  alt="Google logo"
-                />
-                <span class="social-btn__text">Google</span>
-              </button>
-              <button class="login-form__btn social-btn" type="button">
-                <img
-                  class="social-btn__img"
-                  src="./assets/github-logo.png"
-                  alt="Github logo"
-                />
-                <span class="social-btn__text">Github</span>
-              </button>
-            </div>
-            <span class="login-form__subtext">or</span>
-            <div class="login-form__wrapper">
-              <div class="login-form__email">
-                <label class="login-form__label" for="login-input">Email</label>
-                <input
-                  class="login-form__input"
-                  type="email"
-                  id="login-input"
-                />
+            <div class="login-form__login">
+              <h2 class="login-form__title">Log in with</h2>
+              <div class="login-form-socials">
+                <button class="login-form__btn social-btn" type="button">
+                  <img
+                    class="social-btn__img"
+                    src="./assets/google-logo.png"
+                    alt="Google logo"
+                  />
+                  <span class="social-btn__text">Google</span>
+                </button>
+                <button class="login-form__btn social-btn" type="button">
+                  <img
+                    class="social-btn__img"
+                    src="./assets/github-logo.png"
+                    alt="Github logo"
+                  />
+                  <span class="social-btn__text">Github</span>
+                </button>
               </div>
-              <div class="login-form__password">
-                <label class="login-form__label" for="login-password"
-                  >Password</label
-                >
-                <input
-                  class="login-form__input"
-                  type="password"
-                  id="login-password"
-                />
+              <span class="login-form__subtext">or</span>
+              <div class="login-form__wrapper">
+                <div class="login-form__email">
+                  <label class="login-form__label" for="login-input"
+                    >Email</label
+                  >
+                  <input
+                    class="login-form__input"
+                    type="email"
+                    id="login-input"
+                  />
+                </div>
+                <div class="login-form__password">
+                  <label class="login-form__label" for="login-password"
+                    >Password</label
+                  >
+                  <input
+                    class="login-form__input"
+                    type="password"
+                    id="login-password"
+                  />
+                </div>
               </div>
+              <button
+                class="login-form__btn submit-btn"
+                id="login-submit"
+                type="submit"
+              >
+                Log In
+              </button>
+              <span class="login-form__sign-up"
+                >Don't have an account?
+                <button type="button" id="swap-to-signup" class="sign-up__btn">
+                  Sign up
+                </button></span
+              >
             </div>
-            <button
-              class="login-form__btn submit-btn"
-              id="login-submit"
-              type="submit"
-            >
-              Log In
-            </button>
+            <div class="signup-form__wrapper is-hidden">
+              <h2 class="login-form__title">Sign up</h2>
+              <div class="login-form__wrapper">
+                <div class="login-form__username">
+                  <label class="login-form__label" for="signup-username"
+                    >Username</label
+                  >
+                  <input
+                    class="login-form__input"
+                    type="text"
+                    id="signup-username"
+                  />
+                </div>
+                <div class="login-form__email">
+                  <label class="login-form__label" for="signup-email"
+                    >Email</label
+                  >
+                  <input
+                    class="login-form__input"
+                    type="email"
+                    id="signup-email"
+                  />
+                </div>
+                <div class="login-form__password">
+                  <label class="login-form__label" for="signup-password"
+                    >Password</label
+                  >
+                  <input
+                    class="login-form__input"
+                    type="password"
+                    id="signup-password"
+                  />
+                </div>
+              </div>
+              <button
+                class="login-form__btn submit-btn"
+                id="signup-submit"
+                type="submit"
+              >
+                Sign up
+              </button>
+              <span class="login-form__sign-up"
+                >Have an account?
+                <button type="button" class="sign-up__btn" id="swap-to-login">
+                  Log in
+                </button></span
+              >
+            </div>
           </form>
           <div class="header__right" style="display: none">
             <div class="user">
