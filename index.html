@@ -9,6 +9,9 @@
   </head>
   <body>
     <div class="app">
+      <div class="sign-popup">
+        <span class="sign-popup__text"></span>
+      </div>
       <aside class="sidebar">
         <div class="sidebar__header logo__wrapper">
           <span class="logo__img">FR</span>
@@ -17,7 +20,7 @@
         <nav class="nav">
           <!-- <span class="nav__title">Filters</span> -->
           <ul class="nav__menu">
-            <li class="nav__menu-item" id="filter-parent">
+            <li class="nav__menu-item nav-main" id="filter-parent">
               <span class="sub-menu__title">Tech</span>
               <ul class="sub-menu">
                 <li class="sub-menu__item">
@@ -105,7 +108,7 @@
               </ul>
             </li>
 
-            <li class="nav__menu-item" style="visibility: hidden">
+            <li class="nav__menu-item" style="display: none">
               <span class="sub-menu__title">Practice</span>
               <ul class="sub-menu">
                 <li class="sub-menu__item">
@@ -162,6 +165,30 @@
                 </li>
               </ul>
             </li>
+            <ul class="sub-menu">
+              <li class="nav__menu-item">
+                <button
+                  class="sub-menu__btn"
+                  data-user="favorites"
+                  id="favorites"
+                >
+                  <svg
+                    class="sub-menu__icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="32"
+                    height="32"
+                    fill="currentColor"
+                    stroke="currentColor"
+                    viewBox="0 0 256 256"
+                  >
+                    <path
+                      d="M229.5,113,166.06,89.94,143,26.5a16,16,0,0,0-30,0L89.94,89.94,26.5,113a16,16,0,0,0,0,30l63.44,23.07L113,229.5a16,16,0,0,0,30,0l23.07-63.44L229.5,143a16,16,0,0,0,0-30ZM157.08,152.3a8,8,0,0,0-4.78,4.78L128,223.9l-24.3-66.82a8,8,0,0,0-4.78-4.78L32.1,128l66.82-24.3a8,8,0,0,0,4.78-4.78L128,32.1l24.3,66.82a8,8,0,0,0,4.78,4.78L223.9,128Z"
+                    ></path>
+                  </svg>
+                  <span>Favorites</span>
+                </button>
+              </li>
+            </ul>
           </ul>
         </nav>
       </aside>
@@ -272,6 +299,9 @@
                   <label class="login-form__label" for="signup-username"
                     >Username</label
                   >
+                  <p class="username-error uncorrect is-hidden">
+                    Имя пользователя должно иметь больше 4 символов!
+                  </p>
                   <input
                     class="login-form__input"
                     type="text"
@@ -292,6 +322,9 @@
                   <label class="login-form__label" for="signup-password"
                     >Password</label
                   >
+                  <p class="password-error uncorrect is-hidden">
+                    Короткий пароль, придумайте другой!
+                  </p>
                   <input
                     class="login-form__input"
                     type="password"

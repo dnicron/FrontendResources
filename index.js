@@ -1,5 +1,50 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    // Если токена нет, просто выходим (пользователь увидит кнопку "Login")
+    return
+  }
+  // Если токен есть — пытаемся авторизоваться автоматически
+  loadUserData(token)
+})
+
+async function loadUserData(token) {
+  try {
+    const response = await fetch('http://localhost:8000/api/me', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`, // Тот самый "паспорт"
+      },
+    })
+
+    if (response.ok) {
+      const data = await response.json()
+      // Если сервер подтвердил токен, обновляем UI (имя пользователя)
+      openFormBtn.classList.add('is-hidden')
+      usernameBtn.textContent = data.username
+      userProfileBlock.classList.remove('is-hidden')
+    } else {
+      // Если токен плохой/просрочен — чистим мусор
+      localStorage.removeItem('token')
+    }
+  } catch (err) {
+    console.error('Ошибка при проверке токена:', err)
+  }
+}
+const notiBlock = document.querySelector('.sign-popup')
+const notiText = document.querySelector('.sign-popup__text')
+function showPopup(message) {
+  notiText.textContent = message
+  notiBlock.classList.add('show')
+  setTimeout(() => {
+    notiBlock.classList.remove('show')
+  }, 2000)
+}
+
 // ######################## VARIABLES ##########################
 const resourcesList = []
+const favorites = document.getElementById('favorites')
 const mainBlock = document.querySelector('.main')
 const cardsListELement = document.querySelector('.cards-list')
 // #############################################################
@@ -36,8 +81,11 @@ loginSwaper.addEventListener('click', () => {
   signupUI.classList.add('is-hidden')
 })
 
+const usernameErr = document.querySelector('.username-error')
+const passwordErr = document.querySelector('.password-error')
 const userProfileBlock = document.getElementById('user-profile')
 const usernameBtn = document.getElementById('user-name-display')
+
 loginForm.addEventListener('submit', async (e) => {
   console.log(e.target)
   e.preventDefault()
@@ -55,13 +103,24 @@ loginForm.addEventListener('submit', async (e) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       })
-      const data = await response.json()
-      console.log('Ответ от сервера (Login):', data)
-      closeAll()
-      openFormBtn.classList.add('is-hidden')
-      usernameBtn.textContent = data.username
-      userProfileBlock.classList.remove('is-hidden')
-      console.log(data)
+      if (response.ok) {
+        const data = await response.json()
+        localStorage.setItem('token', data.token)
+        console.log('Ответ от сервера (Login):', data)
+        closeAll()
+        openFormBtn.classList.add('is-hidden')
+        usernameBtn.textContent = data.username
+        userProfileBlock.classList.remove('is-hidden')
+        console.log(data)
+        notiBlock.style = 'background-color: green'
+        showPopup(`Привет, ${data.username}`)
+      } else {
+        const data = await response.json()
+        console.log('Ответ от сервера (Login):', data)
+        console.log(data)
+        notiBlock.style = 'background-color: red'
+        showPopup(`Ошибка: ${data.error}`)
+      }
     } catch (err) {
       console.error('Ошибка подключения к серверу:', err)
     }
@@ -82,6 +141,23 @@ loginForm.addEventListener('submit', async (e) => {
     const username = userEl.value
     const signupEmail = emailEl.value
     const signupPassword = passEl.value
+
+    if (username.length < 4) {
+      usernameErr.classList.remove('is-hidden')
+      signupSubmitBtn.setAttribute('disabled', '')
+      setTimeout(() => {
+        usernameErr.classList.add('is-hidden')
+        signupSubmitBtn.removeAttribute('disabled')
+      }, 3000)
+      return
+    }
+    if (signupPassword.length < 8) {
+      passwordErr.classList.remove('is-hidden')
+      setTimeout(() => {
+        passwordErr.classList.add('is-hidden')
+      }, 3000)
+      return
+    }
 
     try {
       console.log('Начинаем регистрацию для:', username)
@@ -153,6 +229,7 @@ const filteredState = {
   source: 'ALL',
   grade: 'ALL',
   cost: 'ALL',
+  showFavorites: false,
 }
 
 const techIcons = {
@@ -275,7 +352,7 @@ function fillDetails(data) {
   sidebarTagCost.textContent = data.cost
   sidebarTagCost.className = `tag cost-tag ${tagsCostClasses[data.cost]}`
   sidebarDescription.textContent =
-    data.fullDescription || data.description || 'Описание скоро появится...'
+    data.fulldescription || data.description || 'Описание скоро появится...'
 }
 
 const closeBtn = document.getElementById('exit-btn')
@@ -338,7 +415,7 @@ document.addEventListener('click', (e) => {
   )
 
   if (!filterBtn) return
-
+  favorites.classList.remove('is-active')
   mainBlock.classList.remove('is-sidebar-open')
 
   if (filterBtn.hasAttribute('data-type'))
@@ -351,10 +428,12 @@ document.addEventListener('click', (e) => {
   if (filterBtn.hasAttribute('data-cost'))
     filteredState.cost = filterBtn.getAttribute('data-cost')
   const parent = filterBtn.closest('#filter-parent')
-  parent
-    .querySelectorAll('.is-active')
-    .forEach((el) => el.classList.remove('is-active'))
+  parent.querySelectorAll('.is-active').forEach((el) => {
+    el.classList.remove('is-active')
+    el.removeAttribute('disabled', '')
+  })
   filterBtn.classList.add('is-active')
+  filterBtn.setAttribute('disabled', '')
   console.log(filteredState)
   // Запускаем общую фильтрацию
   applyFilters()
@@ -382,4 +461,14 @@ searchForm.addEventListener('submit', (e) => {
     return title.includes(searchValue) || description.includes(searchValue)
   })
   contentRender(searchList)
+})
+
+const mainMenu = document.querySelector('.nav-main')
+const techBtns = document.querySelectorAll('.sub-menu__btn')
+favorites.addEventListener('click', () => {
+  techBtns.forEach((btn) => {
+    btn.classList.remove('is-active')
+    btn.removeAttribute('disabled')
+  })
+  favorites.classList.add('is-active')
 })

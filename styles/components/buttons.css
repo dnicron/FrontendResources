@@ -113,3 +113,15 @@ button {
 .close-form__btn {
   align-self: flex-end;
 }
+
+#signup-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background-color: gray;
+  color: white;
+}
+
+#signup-submit:disabled:hover {
+  background-color: gray;
+  color: white;
+}

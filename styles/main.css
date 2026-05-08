@@ -73,3 +73,29 @@ button:focus {
 .is-hidden {
   display: none;
 }
+
+.sign-popup {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: green;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  opacity: 0;
+  z-index: 1000;
+  transform: translate(-50%, -20px);
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+}
+
+.sign-popup.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.uncorrect {
+  font-size: 12px;
+  color: red;
+  margin-block: 5px;
+}

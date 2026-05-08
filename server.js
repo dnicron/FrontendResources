@@ -1,131 +1,102 @@
-import http from 'http'
-import sqlite3 from 'sqlite3'
+import express from 'express'
+import dotenv from 'dotenv'
+import cors from 'cors'
+import pool from './db.js'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
-const db = new sqlite3.Database('./frontend_resources.db')
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS resources (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    tech TEXT,
-    title TEXT,
-    source TEXT,
-    description TEXT,
-    fullDescription TEXT,
-    grade TEXT,
-    cost TEXT
-  )`)
-})
-const server = new http.createServer((req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-  res.setHeader('Content-Type', 'application/json; charset=utf-8')
+dotenv.config()
+const SECRET_KEY = process.env.JWT_SECRET
+const app = express()
+const PORT = 8000
 
-  if (req.method === 'OPTIONS') {
-    res.statusCode = 204
-    return res.end()
+app.use(cors())
+app.use(express.json())
+
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  if (!token) {
+    return res.status(401).json({ error: 'Токен недействителен или просрочен' })
   }
 
-  if (req.method === 'GET' && req.url === '/resources') {
-    db.all('SELECT * FROM resources', [], (err, rows) => {
-      if (err) {
-        res.writeHead(500)
-        return res.end(JSON.stringify({ error: err.message }))
-      }
-      res.writeHead(200, {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      })
-      return res.end(JSON.stringify(rows))
-    })
-    return
-  }
+  jwt.verify(token, SECRET_KEY, (err, user) => {
+    if (err) {
+      return res
+        .status(403)
+        .json({ error: 'Токен недействителен или просрочен' })
+    }
 
-  if (req.method === 'GET') {
-    res.statusCode = 200
-    return res.end()
-  }
+    req.user = user
 
-  if (req.url === '/register' && req.method === 'POST') {
-    let body = ''
-    req.on('data', (chunk) => (body += chunk.toString()))
-    req.on('error', (err) => {
-      console.error('Ошибка в потоке запроса:', err)
-      res.statusCode = 400
-      res.end()
-    })
-    req.on('end', () => {
-      console.log('Регистрация:', body)
-      const { username, email, password } = JSON.parse(body)
-      const sql = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`
-      db.run(sql, [username, email, password], function (err) {
-        if (err) {
-          res.writeHead(500)
-          return res.end(
-            JSON.stringify({
-              message: 'Ошибка: почта уже занята или данные неверны',
-            }),
-          )
-        }
+    next()
+  })
+}
 
-        res.writeHead(201, { 'Content-Type': 'application/json' })
-        res.end(
-          JSON.stringify({
-            message: 'Пользователь успешно создан!',
-            username: username,
-            userId: this.lastID, // ID нового юзера из базы
-          }),
-        )
-      })
-    })
-    return
-  }
-
-  if (req.url === '/login' && req.method === 'POST') {
-    let body = ''
-    req.on('data', (chunk) => (body += chunk.toString()))
-    req.on('error', (err) => {
-      console.error('Ошибка в потоке запроса:', err)
-      res.statusCode = 400
-      res.end()
-    })
-    req.on('end', () => {
-      console.log('Логин:', body)
-      const { email, password } = JSON.parse(body)
-      const sql = `SELECT * FROM users WHERE email = ? AND password = ?`
-      db.get(sql, [email, password], function (err, user) {
-        if (err) {
-          res.writeHead(500)
-          return res.end(
-            JSON.stringify({
-              message: 'Ошибка сервера',
-            }),
-          )
-        }
-
-        if (!user) {
-          res.writeHead(401)
-          return res.end(
-            JSON.stringify({ message: 'Неверный email или пароль' }),
-          )
-        }
-
-        res.writeHead(200, { 'Content-Type': 'application/json' })
-        res.end(
-          JSON.stringify({
-            message: 'Вход успешен!',
-            username: user.username,
-            userId: user.id,
-          }),
-        )
-      })
-    })
-    return
-  }
-
-  res.statusCode = 404
-  res.end(JSON.stringify({ message: 'Маршрут не найден' }))
+app.get('/api/me', authenticateToken, (req, res) => {
+  res.json({
+    id: req.user.id,
+    username: req.user.username,
+  })
 })
 
-server.listen(8000, 'localhost', () => {
-  console.log('Сервер запущен!')
+app.get('/resources', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM resources ORDER BY id ASC')
+    res.json(result.rows)
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: 'Ошибка сервера' })
+  }
+})
+
+app.post('/register', async (req, res) => {
+  const { username, email, password } = req.body
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const newUser = await pool.query(
+      'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *',
+      [username, email, hashedPassword],
+    )
+    res.status(201).json(newUser.rows[0])
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body
+  try {
+    const userResult = await pool.query(
+      'SELECT * FROM users WHERE email = $1',
+      [email],
+    )
+    if (userResult.rowCount === 0) {
+      return res.status(400).json({ error: 'Такой почты нет' })
+    }
+
+    const user = userResult.rows[0]
+
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (isMatch) {
+      const token = jwt.sign(
+        { id: user.id, username: user.username },
+        SECRET_KEY,
+        { expiresIn: '7d' },
+      )
+      res.json({ message: 'Добро пожаловать!', username: user.username, token })
+    } else {
+      // Пароль не подошел
+      res.status(401).json({ error: 'Неверный пароль' })
+    }
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server: http://localhost:${PORT}`)
 })
