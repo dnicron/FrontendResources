@@ -1,3 +1,7 @@
+let currentResourceId = null
+const sidebarFavoriteBtn = document.querySelector('.favorite-btn')
+const cardsFiltersBlock = document.querySelector('.cards-filters')
+
 document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('token')
 
@@ -14,18 +18,16 @@ async function loadUserData(token) {
     const response = await fetch('http://localhost:8000/api/me', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`, // Тот самый "паспорт"
+        Authorization: `Bearer ${token}`,
       },
     })
 
     if (response.ok) {
       const data = await response.json()
-      // Если сервер подтвердил токен, обновляем UI (имя пользователя)
       openFormBtn.classList.add('is-hidden')
       usernameBtn.textContent = data.username
       userProfileBlock.classList.remove('is-hidden')
     } else {
-      // Если токен плохой/просрочен — чистим мусор
       localStorage.removeItem('token')
     }
   } catch (err) {
@@ -189,10 +191,15 @@ loginForm.addEventListener('submit', async (e) => {
 // ###########################################################
 async function loadResources() {
   try {
-    const response = await fetch('http://localhost:8000/resources')
+    const token = localStorage.getItem('token')
+    const response = await fetch('http://localhost:8000/resources', {
+      method: 'GET',
+      headers: {
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    })
     const data = await response.json()
 
-    // Очищаем текущий список (если нужно) и отрисовываем данные из БД
     contentRender(data)
 
     data.forEach((item) => resourcesList.push(item))
@@ -344,6 +351,14 @@ const sidebarDescription = document.querySelector(
 )
 
 function fillDetails(data) {
+  if (data.isFavorite) {
+    sidebarFavoriteBtn.classList.add('is-active')
+    sidebarFavoriteBtn.textContent = '★ В избранном'
+  } else {
+    sidebarFavoriteBtn.classList.remove('is-active')
+    sidebarFavoriteBtn.textContent = '☆ Добавить в избранное'
+  }
+  currentResourceId = data.id
   sidebarImg.src = techIcons[data.tech]
   sidebarTitle.textContent = data.title
   sidebarSource.textContent = data.source
@@ -418,6 +433,10 @@ document.addEventListener('click', (e) => {
   favorites.classList.remove('is-active')
   mainBlock.classList.remove('is-sidebar-open')
 
+  if (filterBtn) {
+    cardsFiltersBlock.classList.remove('is-hidden')
+  }
+
   if (filterBtn.hasAttribute('data-type'))
     filteredState.tech = filterBtn.getAttribute('data-type')
   console.log(filteredState.tech)
@@ -435,7 +454,6 @@ document.addEventListener('click', (e) => {
   filterBtn.classList.add('is-active')
   filterBtn.setAttribute('disabled', '')
   console.log(filteredState)
-  // Запускаем общую фильтрацию
   applyFilters()
 })
 
@@ -466,9 +484,78 @@ searchForm.addEventListener('submit', (e) => {
 const mainMenu = document.querySelector('.nav-main')
 const techBtns = document.querySelectorAll('.sub-menu__btn')
 favorites.addEventListener('click', () => {
+  cardsFiltersBlock.classList.add('is-hidden')
   techBtns.forEach((btn) => {
     btn.classList.remove('is-active')
     btn.removeAttribute('disabled')
   })
+
   favorites.classList.add('is-active')
+
+  const favoriteResources = resourcesList.filter((r) => r.isFavorite === true)
+  contentRender(favoriteResources)
+})
+
+async function toggleFavorite(resourceId) {
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    showPopup('Войдите в аккаунт, чтобы сохранять избранное')
+    return false
+  }
+
+  try {
+    const response = await fetch('http://localhost:8000/api/favorites/toggle', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ resourceId: resourceId }),
+    })
+
+    if (response.status === 401 || response.status === 403) {
+      console.error('Ошибка авторизации. Токен невалиден.')
+      showPopup('Сессия истекла, пожалуйста, войдите снова')
+      localStorage.removeItem('token')
+      return false
+    }
+
+    if (!response.ok) {
+      throw new Error(`Ошибка сервера: ${response.status}`)
+    }
+
+    const data = await response.json()
+
+    const resource = resourcesList.find((r) => r.id === resourceId)
+    if (resource) {
+      resource.isFavorite = data.added
+    }
+
+    console.log(data.message)
+    return data.added
+  } catch (error) {
+    console.error('Ошибка при переключении избранного:', error)
+    return false
+  }
+}
+
+sidebarFavoriteBtn.addEventListener('click', async () => {
+  if (!currentResourceId) return
+
+  const isAdded = await toggleFavorite(currentResourceId)
+
+  if (isAdded) {
+    sidebarFavoriteBtn.classList.add('is-active')
+    sidebarFavoriteBtn.textContent = '★ В избранном'
+  } else {
+    sidebarFavoriteBtn.classList.remove('is-active')
+    sidebarFavoriteBtn.textContent = '☆ Добавить в избранное'
+  }
+
+  const resource = resourcesList.find((r) => r.id === currentResourceId)
+  if (resource) {
+    resource.isFavorite = isAdded
+  }
 })
